@@ -1,3 +1,4 @@
+package com.Pocket_Money;
 
 public class MoneyTransaction {
 	private int nMoney;
@@ -27,5 +28,22 @@ public class MoneyTransaction {
 		this.sUsePlace = usePlace;
 		this.nCategory = category;
 		this.bFixedCost = fixedCost;
+	}
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append(this.sUseDate);
+		sb.append(" ");
+		sb.append(this.nMoney);
+		sb.append(" ");
+		sb.append(this.nCategory);
+		sb.append(" ");
+		sb.append(this.sUsePlace);
+		sb.append(" ");
+		if(this.bFixedCost)
+			sb.append("y");
+		else sb.append("n");
+		
+		return sb.toString();
 	}
 }
