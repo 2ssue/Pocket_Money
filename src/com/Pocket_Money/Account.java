@@ -34,7 +34,7 @@ public class Account {
 				while((sLine = bufferReader.readLine()) != null){
 					String[] transaction = this.parsingAccountFile(sLine);
 					int money = Integer.parseInt(transaction[1]);
-					int category = Integer.parseInt(transaction[2]);
+					String category = transaction[2];
 					boolean fixedCost;
 					if(transaction.equals("y")) fixedCost = true;
 					else fixedCost = false;

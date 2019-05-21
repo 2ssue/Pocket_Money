@@ -108,13 +108,37 @@ public class AccountUI {
 	}
 	public int inputLimit() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("경고 알람을 설정할 금액을 입력하세요");
-		return sc.nextInt();
+		boolean numCheck = true;
+		int inputNum = 0;
+		
+		while(numCheck) {
+			System.out.println("경고 알람을 설정할 금액을 입력하세요");
+			try {
+				inputNum = Integer.parseInt(sc.nextLine());
+				numCheck = false;
+			}catch (NumberFormatException e) {
+				System.out.println("****숫자를 입력하세요****");
+			}
+		}
+		return inputNum;
 	}
 	public int deleteCategory() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("삭제할 카테고리의 번호를 선택하세요");
-		return sc.nextInt();
+		
+		boolean numCheck = true;
+		int inputNum = 0;
+		
+		while(numCheck) {
+			System.out.println("삭제할 카테고리의 번호를 선택하세요");
+			try {
+				inputNum = Integer.parseInt(sc.nextLine());
+				numCheck = false;
+			}catch (NumberFormatException e) {
+				System.out.println("****숫자를 입력하세요****");
+			}
+		}
+		
+		return inputNum;
 	}
 	public String addCategory() {
 		Scanner sc = new Scanner(System.in);

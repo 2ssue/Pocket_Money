@@ -32,6 +32,13 @@ public class MoneyTransaction {
 		this.sCategory = categories.getCategory(category - 1);
 		this.bFixedCost = fixedCost;
 	}
+	public MoneyTransaction(int money, String useDate, String usePlace, String category, boolean fixedCost) {
+		this.nMoney = money;
+		this.sUseDate = useDate;
+		this.sUsePlace = usePlace;
+		this.sCategory = category;
+		this.bFixedCost = fixedCost;
+	}
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		
