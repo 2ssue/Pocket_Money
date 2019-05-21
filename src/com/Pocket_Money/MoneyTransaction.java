@@ -4,7 +4,7 @@ public class MoneyTransaction {
 	private int nMoney;
 	private String sUseDate;
 	private String sUsePlace;
-	private int nCategory;
+	private String sCategory;
 	private boolean bFixedCost;
 	
 	public int getMoney() {
@@ -16,8 +16,8 @@ public class MoneyTransaction {
 	public String getPlace() {
 		return sUsePlace;
 	}
-	public int getCategory() {
-		return nCategory;
+	public String getCategory() {
+		return sCategory;
 	}
 	public boolean getFixed() {
 		return bFixedCost;
@@ -26,7 +26,10 @@ public class MoneyTransaction {
 		this.nMoney = money;
 		this.sUseDate = useDate;
 		this.sUsePlace = usePlace;
-		this.nCategory = category;
+		
+		Categories categories = Categories.getInstance();
+		
+		this.sCategory = categories.getCategory(category - 1);
 		this.bFixedCost = fixedCost;
 	}
 	public String toString() {
@@ -36,7 +39,7 @@ public class MoneyTransaction {
 		sb.append(" ");
 		sb.append(this.nMoney);
 		sb.append(" ");
-		sb.append(this.nCategory);
+		sb.append(this.sCategory);
 		sb.append(" ");
 		sb.append(this.sUsePlace);
 		sb.append(" ");

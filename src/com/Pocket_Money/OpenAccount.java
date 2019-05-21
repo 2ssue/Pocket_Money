@@ -24,7 +24,8 @@ public class OpenAccount {
 						try {
 							nBalance = Integer.parseInt(bufferReader.readLine());
 						} catch (NumberFormatException e) {
-							// TODO Auto-generated catch block
+							nBalance = 0;
+							System.out.println("계좌에 저장된 총액의 상태를 확인하십시오");
 							e.printStackTrace();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -40,17 +41,12 @@ public class OpenAccount {
 					break;
 				}
 			}
+			if(account == null)
+				account = accountUI.createAccount();
 		}
 		else{
 			accountFolder.mkdirs();
 			account = accountUI.createAccount();
-			File accountFile = new File(".\\Account\\" + account.getAccountName()+".txt");
-			try {
-				accountFile.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println("계좌를 생성하는 중 오류가 발생했습니다");
-			}
 		}
 		
 		Categories categories = Categories.getInstance();
@@ -71,7 +67,7 @@ public class OpenAccount {
 				}
 				break;
 			case 3:
-				account.setBalance(accountUI.inputLimit());
+				account.setLimit(accountUI.inputLimit());
 				break;
 			case 4:
 				System.out.print("현재 잔액: ");
@@ -85,6 +81,10 @@ public class OpenAccount {
 				categories.deleteCategory(accountUI.deleteCategory());
 				break;
 			case 7:
+				account.deleteAllTransaction();
+				account.setBalance(0);
+				System.out.print("계좌가 초기화 되었습니다. 현재 잔액: ");
+				System.out.println(account.getBalance());
 				break;
 			case 8:
 				categories.saveCategory();

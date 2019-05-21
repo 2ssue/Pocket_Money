@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,7 +45,11 @@ public class Categories {
 		categories.add(sCategoryName);
 	}
 	public void deleteCategory(int nCategoryNumber) {
-		categories.remove(nCategoryNumber - 1);
+		try {
+			categories.remove(nCategoryNumber - 1);
+		}catch (IndexOutOfBoundsException | InputMismatchException e) {
+			System.out.println("없는 카테고리 입니다. 범위 내의 숫자를 입력해주세요.");
+		}
 	}
 	public Iterator<String> iteratorCategories(){
 		return categories.iterator();

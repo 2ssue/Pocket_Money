@@ -46,8 +46,12 @@ public class Account {
 				e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				accountFile.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				System.out.println("계좌를 생성하는 중 오류가 발생했습니다.");
+			}
 		}
 	}
 	private String[] parsingAccountFile(String s) {

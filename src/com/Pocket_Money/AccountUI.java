@@ -1,5 +1,6 @@
 package com.Pocket_Money;
 
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -16,20 +17,36 @@ public class AccountUI {
 		System.out.println("7. 계좌 초기화하기");
 		System.out.println("8. 종료하기");
 		
-		return sc.nextInt();
+		try{
+			return sc.nextInt();
+		}catch (InputMismatchException e) {
+			System.out.println("메누의 숫자를 입력해주세요");
+			return 0;
+		}
 	}
 	public Account createAccount() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("용돈 관리 프로그램 입니다. 계좌를 생성하기 위해 이름을 입력해 주세요");
 		String accountName = sc.nextLine();
-		System.out.println("계좌의 초기 잔액을 설정해주세요");
-		int accountBalance = sc.nextInt();
+		
+		int accountBalance = 0;
+		boolean numCheck = true;
+		
+		while(numCheck) {
+			System.out.println("계좌의 초기 잔액을 설정해주세요");
+			try{
+				accountBalance= Integer.parseInt(sc.nextLine());
+				numCheck = false;
+			}catch (NumberFormatException e) {
+				System.out.println("****숫자를 입력하세요****");
+			}
+		}
 		
 		Account new_account = new Account(accountName, accountBalance);
 		
 		return new_account;
 	}
-	public void showCategory() {
+	public int showCategory() {
 		Categories categories = Categories.getInstance();
 		Iterator<String> categoryList = categories.iteratorCategories();
 		int cnt = 1;
@@ -37,6 +54,7 @@ public class AccountUI {
 			System.out.println(Integer.toString(cnt) + ". " + categoryList.next());
 			cnt++;
 		}
+		return cnt - 1;
 	}
 	public MoneyTransaction addTransaction() {
 		Scanner sc = new Scanner(System.in);
@@ -44,15 +62,39 @@ public class AccountUI {
 		System.out.println("사용 일자를 입력하세요");
 		String useDate = sc.nextLine();
 		
-		System.out.println("사용 카테고리를 선택하세요");
-		this.showCategory();
-		int category = Integer.parseInt(sc.nextLine());
+		int categoryNum = 0;
+		int category = 0;
+		boolean categoryCheck = true;
+		
+		while(categoryCheck) {
+			System.out.println("사용 카테고리를 선택하세요");
+			categoryNum = this.showCategory();
+			try {
+				category = Integer.parseInt(sc.nextLine());
+				if(category > categoryNum || category <= 0) {
+					System.out.println("****범위에 없는 카테고리입니다.****");
+				}else categoryCheck = false;
+			}catch (NumberFormatException e) {
+				System.out.println("****숫자를 입력하세요****");
+			}
+			
+		}
 		
 		System.out.println("사용 장소를 입력하세요");
 		String usePlace = sc.nextLine();
 		
-		System.out.println("사용 금액을 입력하세요 (지출:+/수입:-)");
-		int money = Integer.parseInt(sc.nextLine());
+		int money = 0;
+		boolean numCheck = true;
+		while(numCheck) {
+			System.out.println("사용 금액을 입력하세요 (지출:+/수입:-)");
+			
+			try{
+				money = Integer.parseInt(sc.nextLine());
+				numCheck = false;
+			}catch(NumberFormatException e) {
+				System.out.println("****숫자를 입력하세요****");
+			}
+		}
 		
 		System.out.println("고정 지출/수입 여부를 입력하세요(y/n)");
 		boolean fixed = false;
